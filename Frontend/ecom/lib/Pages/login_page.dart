@@ -1,4 +1,8 @@
+import 'dart:math';
+
+import 'package:ecom/Models/login_request.dart';
 import 'package:ecom/Pages/register_page.dart';
+import 'package:ecom/Services/auth_service.dart';
 import 'package:ecom/Widgets/custom_button.dart';
 import 'package:ecom/Widgets/custom_textfield.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +16,26 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   bool isChecked = false;
+  bool obscureText = true;
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
+  final AuthService _authService = AuthService();
+
+  Future<void> login() async {
+    final request = LoginRequest(
+      email: emailController.text.trim(),
+      password: passwordController.text.trim(),
+    );
+
+    try {
+      final response = await _authService.login(request);
+
+      print("Login Successfull");
+    } catch (e) {
+      print("Login Failed: $e");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,23 +54,23 @@ class _LoginPageState extends State<LoginPage> {
             children: [
               const SizedBox(height: 40),
 
-              DefaultTabController(
-                length: 2,
-                child: Column(
-                  children: [
-                    TabBar(
-                      indicatorColor: Colors.blue,
-                      indicatorWeight: 3,
-                      labelColor: Colors.black,
-                      unselectedLabelColor: Colors.grey,
-                      tabs: const [
-                        Tab(text: "Sign in"),
-                        Tab(text: "Register"),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
+              // DefaultTabController(
+              //   length: 2,
+              //   child: Column(
+              //     children: [
+              //       TabBar(
+              //         indicatorColor: Colors.blue,
+              //         indicatorWeight: 3,
+              //         labelColor: Colors.black,
+              //         unselectedLabelColor: Colors.grey,
+              //         tabs: const [
+              //           Tab(text: "Sign in"),
+              //           Tab(text: "Register"),
+              //         ],
+              //       ),
+              //     ],
+              //   ),
+              // ),
               SizedBox(height: 40),
 
               Center(
@@ -63,12 +87,23 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               const SizedBox(height: 40),
-              CustomTextfield(hintText: "Email address"),
+              CustomTextfield(
+                hintText: "Email address",
+                controller: emailController,
+              ),
               SizedBox(height: 10),
               CustomTextfield(
                 hintText: "Password",
+                controller: passwordController,
                 obscureText: true,
-                suffixIcon: Icon(Icons.remove_red_eye_outlined),
+                suffixIcon: IconButton(
+                  onPressed: () {
+                    setState(() {
+                      obscureText = !obscureText;
+                    });
+                  },
+                  icon: Icon(Icons.remove_red_eye),
+                ),
               ),
 
               const SizedBox(height: 10),
@@ -97,7 +132,7 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(height: 30),
 
               // ignore: avoid_print
-              CustomButton(text: "Sign In", onPressed: () {}),
+              CustomButton(text: "Sign In", onPressed: login),
               SizedBox(height: 30),
 
               Row(

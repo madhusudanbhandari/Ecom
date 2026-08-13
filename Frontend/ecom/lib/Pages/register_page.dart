@@ -1,6 +1,8 @@
 import 'package:ecom/Widgets/custom_button.dart';
 import 'package:ecom/Widgets/custom_textfield.dart';
 import 'package:flutter/material.dart';
+import '../Models/register_request.dart';
+import '../Services/auth_service.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -11,6 +13,31 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   bool isChecked = false;
+  final TextEditingController fullNameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
+
+  final AuthService _authService = AuthService();
+
+  Future<void> register() async {
+    final request = RegisterRequest(
+      fullName: fullNameController.text.trim(),
+      email: emailController.text.trim(),
+      password: passwordController.text.trim(),
+      confirmPassword: confirmPasswordController.text.trim(),
+    );
+
+    try {
+      final response = await _authService.register(request);
+
+      print("Registration sucessfull");
+    } catch (e) {
+      print("Registration failed: $e");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,13 +66,20 @@ class _RegisterPageState extends State<RegisterPage> {
 
               const SizedBox(height: 60),
 
-              CustomTextfield(hintText: "Full Name"),
+              CustomTextfield(
+                hintText: "Full Name",
+                controller: fullNameController,
+              ),
               const SizedBox(height: 10),
-              CustomTextfield(hintText: "Email Address"),
+              CustomTextfield(
+                hintText: "Email Address",
+                controller: emailController,
+              ),
               const SizedBox(height: 10),
 
               CustomTextfield(
                 hintText: "Password",
+                controller: passwordController,
                 obscureText: true,
                 suffixIcon: Icon(Icons.remove_red_eye),
               ),
@@ -53,6 +87,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
               CustomTextfield(
                 hintText: "Confirm Password",
+                controller: confirmPasswordController,
                 obscureText: true,
                 suffixIcon: Icon(Icons.remove_red_eye),
               ),
@@ -78,7 +113,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 ],
               ),
               SizedBox(height: 30),
-              CustomButton(text: "Register", onPressed: () {}),
+              CustomButton(text: "Register", onPressed: register),
 
               const SizedBox(height: 50),
               Row(
