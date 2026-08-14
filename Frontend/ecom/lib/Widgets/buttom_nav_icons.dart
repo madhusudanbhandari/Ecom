@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../Providers/cart_provider.dart';
 
 final activeTabProvider = StateProvider<String>((ref) => 'home');
 
-final cartCountProvider = StateProvider<int>((ref) => 0);
+//final cartCountProvider = StateProvider<int>((ref) => 0);
+
+final cartCountProvider = Provider<int>((ref) {
+  final cart = ref.watch(cartProvider);
+
+  return cart.fold(0, (sum, item) => sum + item.quantity);
+});
 
 class ButtomNavBar extends ConsumerWidget {
   const ButtomNavBar({super.key});
@@ -11,8 +18,8 @@ class ButtomNavBar extends ConsumerWidget {
   static const _tabs = [
     _TabData('home', Icons.home_outlined, 'Home'),
     _TabData('search', Icons.search_outlined, 'Search'),
-    _TabData('profile', Icons.person_outline, 'Profile'),
     _TabData('bag', Icons.shopping_bag_outlined, 'Bag'),
+    _TabData('profile', Icons.person_outline, 'Profile'),
   ];
 
   @override
@@ -97,7 +104,7 @@ class _NavButton extends ConsumerWidget {
                 width: 6,
                 height: 6,
                 decoration: const BoxDecoration(
-                  color: Colors.teal,
+                  color: Colors.blue,
                   shape: BoxShape.circle,
                 ),
               ),
@@ -127,11 +134,11 @@ class _CartButton extends ConsumerWidget {
             width: 56,
             height: 56,
             decoration: BoxDecoration(
-              color: isActive ? Colors.teal.shade600 : Colors.teal.shade400,
+              color: isActive ? Colors.blue.shade600 : Colors.blue.shade400,
               shape: BoxShape.circle,
               boxShadow: [
                 BoxShadow(
-                  color: Colors.teal,
+                  color: Colors.blue,
                   blurRadius: 20,
                   offset: const Offset(0, 8),
                 ),
