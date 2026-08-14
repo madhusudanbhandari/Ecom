@@ -13,6 +13,7 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   bool isChecked = false;
+  bool obscureText = true;
   final TextEditingController fullNameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -80,16 +81,30 @@ class _RegisterPageState extends State<RegisterPage> {
               CustomTextfield(
                 hintText: "Password",
                 controller: passwordController,
-                obscureText: true,
-                suffixIcon: Icon(Icons.remove_red_eye),
+                obscureText: obscureText,
+                suffixIcon: IconButton(
+                  onPressed: () {
+                    setState(() {
+                      obscureText = !obscureText;
+                    });
+                  },
+                  icon: Icon(Icons.remove_red_eye),
+                ),
               ),
               const SizedBox(height: 10),
 
               CustomTextfield(
                 hintText: "Confirm Password",
                 controller: confirmPasswordController,
-                obscureText: true,
-                suffixIcon: Icon(Icons.remove_red_eye),
+                obscureText: obscureText,
+                suffixIcon: IconButton(
+                  onPressed: () {
+                    setState(() {
+                      obscureText = !obscureText;
+                    });
+                  },
+                  icon: Icon(Icons.remove_red_eye),
+                ),
               ),
 
               Row(

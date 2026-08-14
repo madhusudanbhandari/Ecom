@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:ecom/Models/login_request.dart';
+import 'package:ecom/Pages/home_page.dart';
 import 'package:ecom/Pages/register_page.dart';
 import 'package:ecom/Services/auth_service.dart';
 import 'package:ecom/Widgets/custom_button.dart';
@@ -30,7 +31,7 @@ class _LoginPageState extends State<LoginPage> {
 
     try {
       final response = await _authService.login(request);
-
+      Navigator.push(context, MaterialPageRoute(builder: (_) => HomePage()));
       print("Login Successfull");
     } catch (e) {
       print("Login Failed: $e");
@@ -95,7 +96,7 @@ class _LoginPageState extends State<LoginPage> {
               CustomTextfield(
                 hintText: "Password",
                 controller: passwordController,
-                obscureText: true,
+                obscureText: obscureText,
                 suffixIcon: IconButton(
                   onPressed: () {
                     setState(() {
