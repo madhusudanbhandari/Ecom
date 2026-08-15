@@ -1,8 +1,8 @@
-import 'package:ecom/Models/product.dart';
-import 'package:ecom/Providers/cart_provider.dart';
-import 'package:ecom/Providers/product_provider.dart';
-import 'package:ecom/Widgets/buttom_nav_icons.dart';
-import 'package:ecom/Widgets/product_card.dart';
+import 'package:ecom/Models/customer/product.dart';
+import 'package:ecom/Providers/customer/cart_provider.dart';
+import 'package:ecom/Providers/customer/product_provider.dart';
+import 'package:ecom/Widgets/customer/buttom_nav_icons.dart';
+import 'package:ecom/Widgets/customer/product_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

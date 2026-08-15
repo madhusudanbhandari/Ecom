@@ -1,7 +1,7 @@
-import 'package:ecom/Providers/cart_provider.dart';
+import 'package:ecom/Providers/customer/cart_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../Models/product.dart';
+import '../../Models/customer/product.dart';
 
 class ProductCard extends ConsumerWidget {
   final Product product;

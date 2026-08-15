@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../Providers/cart_provider.dart';
+import '../../Providers/customer/cart_provider.dart';
 
 final activeTabProvider = StateProvider<String>((ref) => 'home');
 

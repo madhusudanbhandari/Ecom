@@ -1,10 +1,12 @@
 import 'dart:math';
 
 import 'package:ecom/Models/auth/login_request.dart';
-import 'package:ecom/Pages/home_page.dart';
+import 'package:ecom/Pages/Customer/home_page.dart';
+import 'package:ecom/Pages/Merchant/merchant_dashboard.dart';
 import 'package:ecom/Pages/auth/register_page.dart';
-import 'package:ecom/Pages/main_page.dart';
+import 'package:ecom/Pages/Customer/main_page.dart';
 import 'package:ecom/Services/auth_service.dart';
+import 'package:ecom/Services/token_storage.dart';
 import 'package:ecom/Widgets/custom_button.dart';
 import 'package:ecom/Widgets/custom_textfield.dart';
 import 'package:flutter/material.dart';
@@ -32,7 +34,16 @@ class _LoginPageState extends State<LoginPage> {
 
     try {
       final response = await _authService.login(request);
-      Navigator.push(context, MaterialPageRoute(builder: (_) => MainPage()));
+      await TokenStorage.saveToken(response.token);
+
+      if (response.role == "Customer") {
+        Navigator.push(context, MaterialPageRoute(builder: (_) => MainPage()));
+      } else if (response.role == "Merchant") {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (_) => MerchantDashboard()),
+        );
+      }
       print("Login Successfull");
     } catch (e) {
       print("Login Failed: $e");

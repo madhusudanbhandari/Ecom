@@ -14,6 +14,8 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPageState extends State<RegisterPage> {
   bool isChecked = false;
   bool obscureText = true;
+  String selectedRole = "Customer";
+
   final TextEditingController fullNameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -28,6 +30,7 @@ class _RegisterPageState extends State<RegisterPage> {
       email: emailController.text.trim(),
       password: passwordController.text.trim(),
       confirmPassword: confirmPasswordController.text.trim(),
+      role: selectedRole,
     );
 
     try {
@@ -105,6 +108,24 @@ class _RegisterPageState extends State<RegisterPage> {
                   },
                   icon: Icon(Icons.remove_red_eye),
                 ),
+              ),
+
+              SizedBox(height: 10),
+
+              DropdownButtonFormField<String>(
+                decoration: const InputDecoration(
+                  labelText: "Select Role",
+                  border: OutlineInputBorder(),
+                ),
+                items: const [
+                  DropdownMenuItem(value: "Customer", child: Text("Customer")),
+                  DropdownMenuItem(value: "Merchant", child: Text("Merchant")),
+                ],
+                onChanged: (value) {
+                  setState(() {
+                    selectedRole = value!;
+                  });
+                },
               ),
 
               Row(

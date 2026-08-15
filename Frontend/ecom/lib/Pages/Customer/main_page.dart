@@ -1,9 +1,9 @@
-import 'package:ecom/Pages/bag_page.dart';
-import 'package:ecom/Pages/cart_page.dart';
-import 'package:ecom/Pages/home_page.dart';
-import 'package:ecom/Pages/profile_page.dart';
-import 'package:ecom/Pages/search_page.dart';
-import 'package:ecom/Widgets/buttom_nav_icons.dart';
+import 'package:ecom/Pages/Customer/bag_page.dart';
+import 'package:ecom/Pages/Customer/cart_page.dart';
+import 'package:ecom/Pages/Customer/home_page.dart';
+import 'package:ecom/Pages/Customer/profile_page.dart';
+import 'package:ecom/Pages/Customer/search_page.dart';
+import 'package:ecom/Widgets/customer/buttom_nav_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

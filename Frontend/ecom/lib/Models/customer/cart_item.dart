@@ -1,4 +1,4 @@
-import 'package:ecom/Models/product.dart';
+import 'package:ecom/Models/customer/product.dart';
 
 class CartItem {
   final Product product;
