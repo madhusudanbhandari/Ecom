@@ -48,7 +48,7 @@ public class ProductService : IProductService
         };
     }
 
-    public async Task<ProductResponseDto> CreateAsync(CreateProductDto dto)
+    public async Task<ProductResponseDto> CreateAsync(CreateProductDto dto,int merchantId)
     {
         var product = new Product
         {
@@ -56,7 +56,9 @@ public class ProductService : IProductService
             Description = dto.Description,
             Price = dto.Price,
             Stock = dto.Stock,
-            ImageUrl = dto.ImageUrl
+            ImageUrl = dto.ImageUrl,
+
+            MerchantId=merchantId
         };
 
         _context.Products.Add(product);
@@ -110,5 +112,22 @@ public class ProductService : IProductService
         await _context.SaveChangesAsync();
 
         return true;
+    }
+
+    public async Task<List<ProductResponseDto>> GetByMerchantIdAsync(
+        int merchantId
+    )
+    {
+        return await _context.Products
+        .Where(p=>p.MerchantId==merchantId)
+        .Select(p=>new ProductResponseDto
+        {
+            Id=p.Id,
+            Name=p.Name,
+            Description=p.Description,
+            Price=p.Price,
+            Stock=p.Stock,
+            ImageUrl=p.ImageUrl
+        }).ToListAsync();
     }
 }

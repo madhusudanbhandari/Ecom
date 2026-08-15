@@ -41,11 +41,16 @@ public class AuthService: IAuthService
 
         }
 
+        if(dto.Role!="Customer" && dto.Role != "Merchant")
+        {
+            throw new Exception("Invalid role");
+        }
+
         var user=new User
         {
             FullName=dto.FullName,
             Email=dto.Email,
-            Role="Customer"
+            Role=dto.Role
         };
 
         user.PasswordHash=_passwordHasher.HashPassword(user,dto.Password);
@@ -108,7 +113,8 @@ public class AuthService: IAuthService
             new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
             new Claim(ClaimTypes.Name, user.FullName),
             new Claim(ClaimTypes.Email, user.Email),
-            new Claim(ClaimTypes.Role, user.Role)
+            new Claim(ClaimTypes.Role, user.Role),
+            new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
         };
 
         var token=new JwtSecurityToken(
@@ -116,7 +122,7 @@ public class AuthService: IAuthService
             audience:_configuration["Jwt:Audience"],
             claims:claims,
             expires:DateTime.UtcNow.AddMinutes(
-                Convert.ToDouble(_configuration["jwt:ExpireMinutes"])
+                Convert.ToDouble(_configuration["Jwt:ExpireMinutes"])
             ),
             signingCredentials:credentials
         );

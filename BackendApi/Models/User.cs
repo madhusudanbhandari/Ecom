@@ -10,5 +10,7 @@ public class User
 
     public string Role{get;set;}="Customer";
 
+    public ICollection<Product> Products {get;set;}=new List<Product>();
+
 
 }
