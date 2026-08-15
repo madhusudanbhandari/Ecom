@@ -5,8 +5,9 @@ import '../Models/product.dart';
 
 class ProductCard extends ConsumerWidget {
   final Product product;
+  final VoidCallback onAdd;
 
-  const ProductCard({super.key, required this.product});
+  const ProductCard({super.key, required this.product, required this.onAdd});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -24,15 +25,15 @@ class ProductCard extends ConsumerWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              height: 140,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: Colors.grey.shade200,
-                borderRadius: BorderRadius.circular(12),
+            Expanded(
+              child: Image.network(
+                product.imageUrl,
+                width: double.infinity,
+                fit: BoxFit.cover,
+                errorBuilder: (_, __, ___) => const Icon(Icons.image, size: 60),
               ),
-              child: const Icon(Icons.shopping_bag, size: 60),
             ),
+
             const SizedBox(height: 10),
 
             Text(
@@ -43,7 +44,7 @@ class ProductCard extends ConsumerWidget {
             const SizedBox(height: 4),
 
             Text(
-              "Rs.{product.price}",
+              "\$${product.price}",
               style: const TextStyle(
                 color: Colors.blue,
                 fontWeight: FontWeight.bold,

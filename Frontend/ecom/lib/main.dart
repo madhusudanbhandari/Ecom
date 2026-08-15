@@ -1,4 +1,4 @@
-import 'package:ecom/Pages/login_page.dart';
+import 'package:ecom/Pages/auth/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

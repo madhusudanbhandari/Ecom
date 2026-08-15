@@ -1,10 +1,10 @@
 import 'dart:convert';
 
-import 'package:ecom/Models/login_request.dart';
+import 'package:ecom/Models/auth/login_request.dart';
 import 'package:http/http.dart' as http;
 
-import '../Models/auth_response.dart';
-import '../Models/register_request.dart';
+import '../Models/auth/auth_response.dart';
+import '../Models/auth/register_request.dart';
 import '../utils/api_constants.dart';
 
 class AuthService {
