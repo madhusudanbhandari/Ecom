@@ -6,8 +6,16 @@ import '../../Models/customer/product.dart';
 class ProductCard extends ConsumerWidget {
   final Product product;
   final VoidCallback onAdd;
+  final VoidCallback onIncrease;
+  final VoidCallback onDecrease;
 
-  const ProductCard({super.key, required this.product, required this.onAdd});
+  const ProductCard({
+    super.key,
+    required this.product,
+    required this.onAdd,
+    required this.onDecrease,
+    required this.onIncrease,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -58,9 +66,7 @@ class ProductCard extends ConsumerWidget {
                 ? SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
-                      onPressed: () {
-                        ref.read(cartProvider.notifier).addProduct(product);
-                      },
+                      onPressed: onAdd,
                       child: const Text("Add to cart"),
                     ),
                   )
@@ -68,11 +74,7 @@ class ProductCard extends ConsumerWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       IconButton(
-                        onPressed: () {
-                          ref
-                              .read(cartProvider.notifier)
-                              .decreaseQuantity(product);
-                        },
+                        onPressed: onDecrease,
                         icon: const Icon(Icons.remove_circle),
                       ),
                       Text(
@@ -83,11 +85,7 @@ class ProductCard extends ConsumerWidget {
                         ),
                       ),
                       IconButton(
-                        onPressed: () {
-                          ref
-                              .read(cartProvider.notifier)
-                              .increaseQuantity(product);
-                        },
+                        onPressed: onIncrease,
                         icon: const Icon(Icons.add_circle),
                       ),
                     ],

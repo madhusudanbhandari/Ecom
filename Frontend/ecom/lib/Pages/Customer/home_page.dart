@@ -40,6 +40,12 @@ class HomePage extends ConsumerWidget {
                     SnackBar(content: Text("${product.name} added to cart")),
                   );
                 },
+                onIncrease: () {
+                  ref.read(cartProvider.notifier).increaseQuantity(product);
+                },
+                onDecrease: () {
+                  ref.read(cartProvider.notifier).decreaseQuantity(product);
+                },
               );
             },
           );

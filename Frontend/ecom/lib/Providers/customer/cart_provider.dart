@@ -54,6 +54,21 @@ class CartNotifier extends StateNotifier<List<CartItem>> {
   void clearCart() {
     state = [];
   }
+
+  void removeProduct(Product product) {
+    state = state.where((item) => item.product.id != product.id).toList();
+  }
+
+  double get totalPrice {
+    return state.fold(
+      0,
+      (sum, item) => sum + (item.product.price * item.quantity),
+    );
+  }
+
+  int get totalItems {
+    return state.fold(0, (sum, item) => sum + item.quantity);
+  }
 }
 
 final cartProvider = StateNotifierProvider<CartNotifier, List<CartItem>>(
