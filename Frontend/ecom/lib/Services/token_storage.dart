@@ -1,4 +1,5 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class TokenStorage {
   static const FlutterSecureStorage _storage = FlutterSecureStorage();
@@ -13,5 +14,10 @@ class TokenStorage {
 
   static Future<void> removeToken() async {
     await _storage.delete(key: 'jwt_token');
+  }
+
+  static Future<void> clearToken() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove('token');
   }
 }

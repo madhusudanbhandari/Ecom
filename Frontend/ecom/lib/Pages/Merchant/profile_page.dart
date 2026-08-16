@@ -3,14 +3,14 @@ import 'package:ecom/Services/token_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 
-class CustomerProfilePage extends StatefulWidget {
-  const CustomerProfilePage({super.key});
+class MerchantProfilePage extends StatefulWidget {
+  const MerchantProfilePage({super.key});
 
   @override
-  State<CustomerProfilePage> createState() => _CustomerProfilePageState();
+  State<MerchantProfilePage> createState() => _MerchantProfilePageState();
 }
 
-class _CustomerProfilePageState extends State<CustomerProfilePage> {
+class _MerchantProfilePageState extends State<MerchantProfilePage> {
   String fullName = "";
   String email = "";
   String role = "";

@@ -16,4 +16,6 @@ public interface IOrderService
     Task<List<OrderResponseDto>> GetMerchantOrdersAsync(
         int merchantId
     );
+
+    Task<bool> UpdateStatusAsync(int orderId, string status);
 }

@@ -119,4 +119,18 @@ public class OrderService : IOrderService
             })
             .ToListAsync();
     }
+
+    public async Task<bool> UpdateStatusAsync(int orderId, string status)
+    {
+        var order=await _context.Orders.FindAsync(orderId);
+
+        if(order==null)
+        return false;
+
+        order.Status=status;
+
+        await _context.SaveChangesAsync();
+
+        return true;
+    }
 }

@@ -57,4 +57,19 @@ public class OrderController: ControllerBase{
         return Ok(orders);
     }
 
+    [Authorize(Roles ="Merchant")]
+    [HttpPut("{id}/status")]
+    public async Task<IActionResult> UpdateStatus(
+        int id,
+        UpdateOrderStatusDto dto
+    )
+    {
+        var updated=await _orderService.UpdateStatusAsync(id,dto.Status);
+
+        if(!updated)
+        return NotFound();
+
+        return Ok();
+    }
+
 }

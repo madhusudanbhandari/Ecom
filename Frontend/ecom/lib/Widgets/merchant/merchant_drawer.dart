@@ -1,6 +1,8 @@
 import 'package:ecom/Pages/Merchant/add_product_page.dart';
 import 'package:ecom/Pages/Merchant/edit_product.dart';
 import 'package:ecom/Pages/Merchant/my_products.dart';
+import 'package:ecom/Pages/Merchant/profile_page.dart';
+import 'package:ecom/Pages/Merchant/view_orders.dart';
 import 'package:flutter/material.dart';
 
 class MerchantDrawer extends StatelessWidget {
@@ -66,6 +68,29 @@ class MerchantDrawer extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (_) => MyProductsPage()),
+              );
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.request_page_rounded),
+            title: Text("View Orders"),
+            onTap: () {
+              Navigator.pop(context);
+
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => MerchantOrdersPage()),
+              );
+            },
+          ),
+
+          ListTile(
+            leading: Icon(Icons.person_3_outlined),
+            title: Text("Profile"),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => MerchantProfilePage()),
               );
             },
           ),
